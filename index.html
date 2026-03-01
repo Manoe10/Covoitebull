@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covoit'Bulle - Covoiturage Associatif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-50 font-sans pb-10">
+
+    <header class="bg-white shadow-md p-4 mb-6">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="https://via.placeholder.com/50" alt="Logo Covoit'Bulle" class="w-12 h-12 rounded-full border-2 border-blue-500">
+                <h1 class="text-xl font-bold text-blue-800">Covoit'Bulle</h1>
+            </div>
+            <button id="loginBtn" class="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5">
+                <span>Connexion Google</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4">
+        
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-blue-100 mb-8">
+            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-plus-circle text-blue-500"></i> Proposer un trajet
+            </h2>
+            <form id="tripForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" id="driver" placeholder="Ton nom / pseudo" class="p-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none" required>
+                <input type="text" id="contact" placeholder="Tél ou Insta" class="p-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none" required>
+                
+                <div class="md:col-span-2 grid grid-cols-2 gap-2">
+                    <input type="text" id="start" placeholder="Départ (ex: Bulle Centre)" class="p-2 border rounded-lg" required>
+                    <input type="text" id="end" placeholder="Arrivée (ex: Soirée Asso)" class="p-2 border rounded-lg" required>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="date" id="date" class="p-2 border rounded-lg" required>
+                    <input type="time" id="time" class="p-2 border rounded-lg" required>
+                </div>
+                
+                <input type="text" id="duration" placeholder="Temps sur place (ex: 3h)" class="p-2 border rounded-lg">
+                <input type="number" id="seats" placeholder="Nombre de places" class="p-2 border rounded-lg" min="1" required>
+
+                <button type="submit" class="md:col-span-2 bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 shadow-md transition">
+                    Publier l'annonce
+                </button>
+            </form>
+        </section>
+
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Trajets disponibles</h2>
+        <div id="tripList" class="space-y-4">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border-l-8 border-blue-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs uppercase font-bold text-gray-400">Proposé par <span class="text-blue-600">Marc</span></p>
+                        <h3 class="text-lg font-bold text-gray-800 mt-1">Bulle ➔ Fribourg</h3>
+                        <p class="text-sm text-gray-600"><i class="far fa-calendar-alt"></i> Samedi 25 oct. à 21:00</p>
+                        <p class="text-sm text-gray-600"><i class="far fa-clock"></i> Reste sur place : environ 4h</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold">3 places</span>
+                    </div>
+                </div>
+                <button class="w-full mt-4 bg-gray-100 text-gray-700 py-2 rounded-lg font-bold hover:bg-blue-100 transition">
+                    Rejoindre ce trajet
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Logique de démonstration
+        const tripForm = document.getElementById('tripForm');
+        const tripList = document.getElementById('tripList');
+
+        tripForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Annonce publiée ! (Note : Pour que ça s'enregistre pour tout le monde, il faut connecter une base de données Firebase)");
+        });
+    </script>
+</body>
+</html>
