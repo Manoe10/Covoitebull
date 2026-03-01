@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covoit'Bulle - Covoiturage Associatif</title>
+    <title>Covoit'Bulle - Ebullition</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .ebull-black { background-color: #000; }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+    </style>
 </head>
-<body class="bg-blue-50 font-sans pb-10">
+<body class="bg-gray-50 pb-20">
 
-    <header class="bg-white shadow-md p-4 mb-6">
+    <header class="ebull-black text-white p-4 shadow-2xl sticky top-0 z-50">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="https://via.placeholder.com/50" alt="Logo Covoit'Bulle" class="w-12 h-12 rounded-full border-2 border-blue-500">
-                <h1 class="text-xl font-bold text-blue-800">Covoit'Bulle</h1>
+                <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Ebull_Saison35_Logo_35_Full.png" alt="Ebullition" class="h-10 bg-white p-1 rounded">
+                <h1 class="font-black uppercase tracking-tighter">Covoit'Bulle</h1>
             </div>
-            <button id="loginBtn" class="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5">
-                <span>Connexion Google</span>
-            </button>
+            <div id="auth-section">
+                <button onclick="login()" id="login-btn" class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold uppercase hover:bg-gray-200 transition">
+                    <i class="fab fa-google mr-2"></i> Connexion
+                </button>
+                <div id="user-info" class="hidden flex items-center gap-2">
+                    <img id="user-pic" src="" class="h-8 w-8 rounded-full border border-white">
+                    <button onclick="logout()" class="text-[10px] underline uppercase opacity-70">Déconnexion</button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-2xl mx-auto px-4">
-        
-        <section class="bg-white p-6 rounded-2xl shadow-sm border border-blue-100 mb-8">
-            <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fas fa-plus-circle text-blue-500"></i> Proposer un trajet
-            </h2>
-            <form id="tripForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="driver" placeholder="Ton nom / pseudo" class="p-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none" required>
-                <input type="text" id="contact" placeholder="Tél ou Insta" class="p-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none" required>
-                
-                <div class="md:col-span-2 grid grid-cols-2 gap-2">
-                    <input type="text" id="start" placeholder="Départ (ex: Bulle Centre)" class="p-2 border rounded-lg" required>
-                    <input type="text" id="end" placeholder="Arrivée (ex: Soirée Asso)" class="p-2 border rounded-lg" required>
+    <main class="max-w-2xl mx-auto p-4 mt-6">
+        <section class="bg-white rounded-3xl p-6 border-2 border-black card-shadow mb-10">
+            <h2 class="font-black uppercase mb-4 text-xl italic"><i class="fas fa-plus-circle mr-2"></i> Proposer un trajet</h2>
+            <form id="add-trip-form" class="space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="text" id="start" placeholder="Départ (ex: Bulle Gare)" class="p-3 bg-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-black" required>
+                    <input type="text" id="end" placeholder="Arrivée (ex: Ebullition)" class="p-3 bg-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-black" required>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="date" id="date" class="p-3 bg-gray-100                    <input type="text" id="end" placeholder="Arrivée (ex: Soirée Asso)" class="p-2 border rounded-lg" required>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
